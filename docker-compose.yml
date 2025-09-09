@@ -1,0 +1,16 @@
+services:
+  postgres:
+    container_name: postgres_db
+    image: postgres:latest
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: codigo
+      POSTGRES_PASSWORD: Arequipa!123
+      POSTGRES_DB: money_db
+    volumes:
+      - monefy_data:/var/lib/postgresql/data
+
+volumes:
+  monefy_data:
