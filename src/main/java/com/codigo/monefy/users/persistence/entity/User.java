@@ -33,9 +33,6 @@ public class User {
     private String profileImageUrl;
     private boolean isActive;
     private boolean isVerified;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    private List<PasswordResetToken> passwordResetTokens = new ArrayList<>();
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
@@ -54,15 +51,5 @@ public class User {
         this.isVerified = isVerified;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-    }
-
-    private void addPasswordResetToken(PasswordResetToken token) {
-        this.passwordResetTokens.add(token);
-        token.setUser(this);
-    }
-
-    private void removePasswordResetToken(PasswordResetToken token) {
-        this.passwordResetTokens.remove(token);
-        token.setUser(null);
     }
 }

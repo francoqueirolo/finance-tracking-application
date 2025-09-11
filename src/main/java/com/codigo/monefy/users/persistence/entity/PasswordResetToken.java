@@ -7,9 +7,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(
-        name = "password_reset_tokens"
-)
+@Table(name = "password_reset_tokens")
 @Getter
 @Setter
 public class PasswordResetToken {
@@ -18,13 +16,25 @@ public class PasswordResetToken {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    // Evitar dejar por defecto el fetch en Eager porque vas a evitar el problema N+1
+    // N+1 cuando usas Eager cada PasswordResetToken va a arrastrar un SELECT adicional para traer el User, aun cuando no lo uses.
+    // Lazy carga perezosa, Eager carga ansiosa
+    // Un usuario puede tener muchos tokens, pero un token solo pertenece a un usuario
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    // findAllByUserId(Long userId)
     private User user;
 
     private String token;
     private LocalDateTime expiryDate;
     private boolean isUsed;
 
+    public PasswordResetToken() {}
+
+    public PasswordResetToken(Long id, User user, String token, LocalDateTime expiryDate, boolean isUsed) {
+        this.id = id;
+        this.user = user;
+        this.token = token;
+        this.expiryDate = expiryDate;
+        this.isUsed = isUsed;
+    }
 }
