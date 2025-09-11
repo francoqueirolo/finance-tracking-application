@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "acctount_types")
+@Table(name = "account_types")
 @Getter
 @Setter
 public class Account {
