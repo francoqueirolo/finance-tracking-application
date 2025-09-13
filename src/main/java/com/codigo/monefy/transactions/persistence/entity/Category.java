@@ -13,7 +13,7 @@ public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -26,7 +26,7 @@ public class Category {
 
     public Category() {}
 
-    public Category(Long id, User user, String name, String description, String color, String icon) {
+    public Category(Integer id, User user, String name, String description, String color, String icon) {
         this.id = id;
         this.user = user;
         this.name = name;

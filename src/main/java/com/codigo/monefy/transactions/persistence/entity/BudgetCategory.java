@@ -12,7 +12,7 @@ public class BudgetCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
@@ -27,7 +27,7 @@ public class BudgetCategory {
 
     public BudgetCategory() {}
 
-    public BudgetCategory(Long id, Category category, Budget budget, Double spentAmount, String allocatedAmount) {
+    public BudgetCategory(Integer id, Category category, Budget budget, Double spentAmount, String allocatedAmount) {
         this.id = id;
         this.category = category;
         this.budget = budget;

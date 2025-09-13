@@ -14,7 +14,7 @@ public class RefreshToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -26,7 +26,7 @@ public class RefreshToken {
 
     public RefreshToken() {}
 
-    public RefreshToken(Long id, User user, String token, LocalDateTime expireDate, boolean isRevoked) {
+    public RefreshToken(Integer id, User user, String token, LocalDateTime expireDate, boolean isRevoked) {
         this.id = id;
         this.user = user;
         this.token = token;

@@ -15,7 +15,7 @@ public class Budget {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -31,7 +31,7 @@ public class Budget {
 
     public Budget() {}
 
-    public Budget(Long id, User user, String name, String description, Double totalAmount, LocalDate startDate, LocalDate endDate, String budgetType, boolean isActive) {
+    public Budget(Integer id, User user, String name, String description, Double totalAmount, LocalDate startDate, LocalDate endDate, String budgetType, boolean isActive) {
         this.id = id;
         this.user = user;
         this.name = name;

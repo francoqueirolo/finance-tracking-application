@@ -29,7 +29,7 @@ CREATE TABLE users_roles
 (
     user_id integer NOT NULL,
     role_id integer NOT NULL,
-    CONSTRAINT users_pkey PRIMARY KEY (user_id, role_id)
+    CONSTRAINT users_roles_pkey PRIMARY KEY (user_id, role_id)
 );
 
 CREATE TABLE email_verification_tokens

@@ -6,14 +6,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "account_types")
+@Table(name = "accounts")
 @Getter
 @Setter
 public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -31,7 +31,7 @@ public class Account {
 
     public Account() {}
 
-    public Account(Long id, User user, AccountType accountType, String name, String description, Double initialBalance, Double currentBalance, boolean isActive, String bankName, String accountNumber) {
+    public Account(Integer id, User user, AccountType accountType, String name, String description, Double initialBalance, Double currentBalance, boolean isActive, String bankName, String accountNumber) {
         this.id = id;
         this.user = user;
         this.accountType = accountType;

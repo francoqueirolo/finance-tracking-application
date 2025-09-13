@@ -15,7 +15,7 @@ public class FinancialGoal {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
@@ -32,7 +32,7 @@ public class FinancialGoal {
 
     public FinancialGoal() {}
 
-    public FinancialGoal(Long id, User user, String name, String description, Double targetAmount, Double currentAmount, LocalDate targetDate, String goalType, boolean isAchieved, boolean isActive) {
+    public FinancialGoal(Integer id, User user, String name, String description, Double targetAmount, Double currentAmount, LocalDate targetDate, String goalType, boolean isAchieved, boolean isActive) {
         this.id = id;
         this.user = user;
         this.name = name;

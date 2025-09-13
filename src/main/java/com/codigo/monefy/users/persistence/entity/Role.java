@@ -16,7 +16,7 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String name;
     private String description;
     private LocalDateTime createdAt;
@@ -27,7 +27,7 @@ public class Role {
 
     public Role() {}
 
-    public Role(Long id, String name, String description, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Role(Integer id, String name, String description, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.description = description;
