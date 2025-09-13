@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -24,13 +25,13 @@ public class GoalContribution {
     @JoinColumn(name = "transaction_id", nullable = false)
     private Transaction transaction;
 
-    private Double amount;
+    private BigDecimal amount;
     private LocalDate contributionDate;
     private String notes;
 
     public GoalContribution() {}
 
-    public GoalContribution(Integer id, FinancialGoal financialGoal, Transaction transaction, Double amount, LocalDate contributionDate, String notes) {
+    public GoalContribution(Integer id, FinancialGoal financialGoal, Transaction transaction, BigDecimal amount, LocalDate contributionDate, String notes) {
         this.id = id;
         this.financialGoal = financialGoal;
         this.transaction = transaction;

@@ -21,7 +21,10 @@ public class EmailVerificationToken {
     private User user;
 
     private String token;
+
+    @Column(name = "expire_date")
     private LocalDateTime expireDate;
+
     private boolean isRevoked;
 
     public EmailVerificationToken() {}

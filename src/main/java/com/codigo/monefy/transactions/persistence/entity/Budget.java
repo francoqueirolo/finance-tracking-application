@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Entity
@@ -23,7 +24,7 @@ public class Budget {
 
     private String name;
     private String description;
-    private Double totalAmount;
+    private BigDecimal totalAmount;
     private LocalDate startDate;
     private LocalDate endDate;
     private String budgetType;
@@ -31,7 +32,7 @@ public class Budget {
 
     public Budget() {}
 
-    public Budget(Integer id, User user, String name, String description, Double totalAmount, LocalDate startDate, LocalDate endDate, String budgetType, boolean isActive) {
+    public Budget(Integer id, User user, String name, String description, BigDecimal totalAmount, LocalDate startDate, LocalDate endDate, String budgetType, boolean isActive) {
         this.id = id;
         this.user = user;
         this.name = name;
