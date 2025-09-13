@@ -38,7 +38,7 @@ public class User {
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
-    })
+    }, fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
@@ -60,16 +60,6 @@ public class User {
         this.isVerified = isVerified;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-    }
-
-    public void addRole(Role role) {
-        roles.add(role);
-        role.getUsers().add(this);
-    }
-
-    public void removeRole(Role role) {
-        roles.remove(role);
-        role.getUsers().remove(this);
     }
 
     @Override
