@@ -15,9 +15,6 @@ CREATE TABLE users
     CONSTRAINT users_pkey PRIMARY KEY (id)
 );
 
-COMMENT
-ON TABLE users IS 'Tabla para manejo de usuarios';
-
 CREATE TABLE roles
 (
     id          serial       NOT NULL,
@@ -80,94 +77,87 @@ CREATE TABLE accounts
     account_type_id integer NOT NULL,
     "name"          varchar(255),
     description     varchar(255),
-    initial_balance numeric((15, 2
-) ),
-  current_balance numeric((15, 2)),
-  is_active boolean,
-  bank_name varchar(255),
-  account_number varchar(255),
-  CONSTRAINT accounts_pkey PRIMARY KEY(id)
+    initial_balance numeric(15, 2),
+    current_balance numeric(15, 2),
+    is_active       boolean,
+    bank_name       varchar(255),
+    account_number  varchar(255),
+    CONSTRAINT accounts_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE categories
 (
-    id      serial  NOT NULL,
-    user_id integer NOT NULL,
-    "name"  varchar(100)
-) NOT NULL,
-  description varchar(255),
-  color varchar(7),
-  icon varchar(50),
-  CONSTRAINT categories_pkey PRIMARY KEY(id)
+    id          serial       NOT NULL,
+    user_id     integer      NOT NULL,
+    "name"      varchar(100) NOT NULL,
+    description varchar(255),
+    color       varchar(7),
+    icon        varchar(50),
+    CONSTRAINT categories_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE transactions
 (
-    id          serial  NOT NULL,
-    account_id  integer NOT NULL,
-    category_id integer NOT NULL,
-    amount      numeric((15, 2
-) ) NOT NULL,
-  description varchar(255) NOT NULL,
-  transaction_date timestamp NOT NULL,
-  transaction_type varchar(20) NOT NULL,
-  notes text,
-  "location" varchar(255) NOT NULL,
-  CONSTRAINT transactions_pkey PRIMARY KEY(id)
+    id               serial         NOT NULL,
+    account_id       integer        NOT NULL,
+    category_id      integer        NOT NULL,
+    amount           numeric(15, 2) NOT NULL,
+    description      varchar(255)   NOT NULL,
+    transaction_date timestamp      NOT NULL,
+    transaction_type varchar(20)    NOT NULL,
+    notes            text,
+    "location"       varchar(255)   NOT NULL,
+    CONSTRAINT transactions_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE budgets
 (
-    id           serial       NOT NULL,
-    user_id      integer      NOT NULL,
-    "name"       varchar(100) NOT NULL,
+    id           serial         NOT NULL,
+    user_id      integer        NOT NULL,
+    "name"       varchar(100)   NOT NULL,
     description  varchar(255),
-    total_amount numeric((15, 2
-) ) NOT NULL,
-  start_date date NOT NULL,
-  end_date date NOT NULL,
-  budget_type varchar(20) NOT NULL,
-  is_active boolean DEFAULT true,
-  CONSTRAINT budgets_pkey PRIMARY KEY(id)
+    total_amount numeric(15, 2) NOT NULL,
+    start_date   date           NOT NULL,
+    end_date     date           NOT NULL,
+    budget_type  varchar(20)    NOT NULL,
+    is_active    boolean DEFAULT true,
+    CONSTRAINT budgets_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE budget_categories
 (
-    id           serial  NOT NULL,
-    budget_id    integer NOT NULL,
-    category_id  integer NOT NULL,
-    spent_amount numeric((15, 2
-) ) NOT NULL,
-  allocated_amount numeric((15, 2)) NOT NULL,
-  CONSTRAINT budget_categories_pkey PRIMARY KEY(id)
+    id               serial         NOT NULL,
+    budget_id        integer        NOT NULL,
+    category_id      integer        NOT NULL,
+    spent_amount     numeric(15, 2) NOT NULL,
+    allocated_amount numeric(15, 2) NOT NULL,
+    CONSTRAINT budget_categories_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE financial_goals
 (
-    id            serial       NOT NULL,
-    user_id       integer      NOT NULL,
-    "name"        varchar(100) NOT NULL,
-    description   varchar(255),
-    target_amount numeric((15, 2
-) ) NOT NULL,
-  current_amount numeric((15, 2)) NOT NULL,
-  target_date date NOT NULL,
-  goal_type varchar(20) NOT NULL,
-  is_achieved boolean DEFAULT false,
-  is_active boolean DEFAULT true,
-  CONSTRAINT financial_goals_pkey PRIMARY KEY(id)
+    id             serial         NOT NULL,
+    user_id        integer        NOT NULL,
+    "name"         varchar(100)   NOT NULL,
+    description    varchar(255),
+    target_amount  numeric(15, 2) NOT NULL,
+    current_amount numeric(15, 2) NOT NULL,
+    target_date    date           NOT NULL,
+    goal_type      varchar(20)    NOT NULL,
+    is_achieved    boolean DEFAULT false,
+    is_active      boolean DEFAULT true,
+    CONSTRAINT financial_goals_pkey PRIMARY KEY (id)
 );
 
 CREATE TABLE goal_contribution
 (
-    id             serial  NOT NULL,
-    goal_id        integer NOT NULL,
-    transaction_id integer NOT NULL,
-    amount         numeric((15, 2
-) ) NOT NULL,
-  contribution_date date NOT NULL,
-  notes text,
-  CONSTRAINT goal_contribution_pkey PRIMARY KEY(id)
+    id                serial         NOT NULL,
+    goal_id           integer        NOT NULL,
+    transaction_id    integer        NOT NULL,
+    amount            numeric(15, 2) NOT NULL,
+    contribution_date date           NOT NULL,
+    notes             text,
+    CONSTRAINT goal_contribution_pkey PRIMARY KEY (id)
 );
 
 ALTER TABLE
@@ -239,3 +229,8 @@ ALTER TABLE
     financial_goals
     ADD
         CONSTRAINT financial_goals_user_id_fkey FOREIGN KEY (user_id) REFERENCES users (id);
+
+ALTER TABLE
+    categories
+    ADD
+        CONSTRAINT categories_user_id_fkey FOREIGN KEY (user_id) REFERENCES users (id);
