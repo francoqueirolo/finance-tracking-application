@@ -1,7 +1,6 @@
 package com.codigo.monefy.users.controller;
 
 import com.codigo.monefy.users.dto.UserDTO;
-import com.codigo.monefy.users.persistence.entity.User;
 import com.codigo.monefy.users.service.UserService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
