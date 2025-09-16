@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -46,6 +47,14 @@ public class UserService {
     public Page<User> findAll(int page, int size) {
         log.info("Finding all users - Page: {}, Size: {}", page, size);
         return userRepository.findAll(PageRequest.of(page, size));
+    }
+
+    public List<UserDTO> findAll() {
+        log.info("Finding all users");
+        List<User> users = userRepository.findAll();
+        return users.stream()
+                .map(userMapper::mapToDTO)
+                .toList();
     }
 
     public void register(@Valid RegistrationRequest registrationRequest) {
