@@ -31,4 +31,20 @@ public class UserController {
         userService.register(registrationRequest);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Integer> updateUser(
+            @PathVariable Integer id,
+            @RequestBody @Valid RegistrationRequest updateRequest
+    ) {
+        // Implement update logic in UserService
+        userService.updateUser(id, updateRequest);
+        return ResponseEntity.ok(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
+    }
 }

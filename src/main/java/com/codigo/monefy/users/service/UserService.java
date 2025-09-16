@@ -81,4 +81,30 @@ public class UserService {
         // Guardar usuario
         userRepository.save(user);
     }
+
+    public void updateUser(Integer id, @Valid RegistrationRequest updateRequest) {
+        log.info("Updating user with ID: {}", id);
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User not found with ID: " + id));
+
+        user.setEmail(updateRequest.getEmail());
+        user.setPasswordHash(updateRequest.getPassword());
+        user.setFirstName(updateRequest.getFirstName());
+        user.setLastName(updateRequest.getLastName());
+        user.setPhone(updateRequest.getPhone());
+        user.setProfileImageUrl(updateRequest.getProfileImageUrl());
+        user.setUpdatedAt(LocalDateTime.now());
+
+        userRepository.save(user);
+    }
+
+    public void deleteUser(Integer id) {
+        log.info("Deleting user with ID: {}", id);
+        if (!userRepository.existsById(id)) {
+            throw new NotFoundException("User not found with ID: " + id);
+        }
+        User userToDelete = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException("User not found with ID: " + id));
+        userRepository.delete(userToDelete);
+    }
 }
