@@ -49,6 +49,7 @@ public class UserService {
         return userRepository.findAll(PageRequest.of(page, size));
     }
 
+    @Transactional(readOnly = true)
     public List<UserDTO> findAll() {
         log.info("Finding all users");
         List<User> users = userRepository.findAll();
