@@ -1,13 +1,12 @@
 package com.codigo.monefy.users.controller;
 
+import com.codigo.monefy.users.dto.RegistrationRequest;
 import com.codigo.monefy.users.dto.UserDTO;
 import com.codigo.monefy.users.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -23,5 +22,13 @@ public class UserController {
     public ResponseEntity<UserDTO> getUserById(@PathVariable Integer id) {
         UserDTO user = userService.findById(id);
         return ResponseEntity.ok(user);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<Void> registerUser(
+            @RequestBody @Valid RegistrationRequest registrationRequest
+            ) {
+        userService.register(registrationRequest);
+        return ResponseEntity.ok().build();
     }
 }
