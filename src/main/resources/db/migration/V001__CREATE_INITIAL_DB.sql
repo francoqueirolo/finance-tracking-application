@@ -29,7 +29,7 @@ CREATE TABLE users_roles
 (
     user_id integer NOT NULL,
     role_id integer NOT NULL,
-    CONSTRAINT users_pkey PRIMARY KEY (user_id, role_id)
+    CONSTRAINT users_roles_pkey PRIMARY KEY (user_id, role_id)
 );
 
 CREATE TABLE email_verification_tokens
@@ -37,7 +37,7 @@ CREATE TABLE email_verification_tokens
     id          serial       NOT NULL,
     user_id     integer      NOT NULL,
     token       varchar(255) NOT NULL,
-    expiry_date timestamp    NOT NULL,
+    expire_date timestamp    NOT NULL,
     is_revoked  boolean DEFAULT false,
     CONSTRAINT email_verification_tokens_pkey PRIMARY KEY (id)
 );
@@ -47,7 +47,7 @@ CREATE TABLE password_reset_tokens
     id          serial       NOT NULL,
     user_id     integer      NOT NULL,
     token       varchar(255) NOT NULL,
-    expiry_date timestamp    NOT NULL,
+    expire_date timestamp    NOT NULL,
     is_used     boolean      NOT NULL DEFAULT false,
     CONSTRAINT password_reset_tokens_pkey PRIMARY KEY (id)
 );
@@ -57,7 +57,7 @@ CREATE TABLE refresh_tokens
     id          serial       NOT NULL,
     user_id     integer      NOT NULL,
     token       varchar(255) NOT NULL,
-    expiry_date timestamp    NOT NULL,
+    expire_date timestamp    NOT NULL,
     is_revoked  boolean      NOT NULL DEFAULT false,
     CONSTRAINT refresh_tokens_pkey PRIMARY KEY (id)
 );
@@ -149,7 +149,7 @@ CREATE TABLE financial_goals
     CONSTRAINT financial_goals_pkey PRIMARY KEY (id)
 );
 
-CREATE TABLE goal_contribution
+CREATE TABLE goal_contributions
 (
     id                serial         NOT NULL,
     goal_id           integer        NOT NULL,
@@ -157,7 +157,7 @@ CREATE TABLE goal_contribution
     amount            numeric(15, 2) NOT NULL,
     contribution_date date           NOT NULL,
     notes             text,
-    CONSTRAINT goal_contribution_pkey PRIMARY KEY (id)
+    CONSTRAINT goal_contributions_pkey PRIMARY KEY (id)
 );
 
 ALTER TABLE
@@ -216,14 +216,14 @@ ALTER TABLE
         CONSTRAINT budget_categories_category_id_fkey FOREIGN KEY (category_id) REFERENCES categories (id);
 
 ALTER TABLE
-    goal_contribution
+    goal_contributions
     ADD
-        CONSTRAINT goal_contribution_goal_id_fkey FOREIGN KEY (goal_id) REFERENCES financial_goals (id);
+        CONSTRAINT goal_contributions_goal_id_fkey FOREIGN KEY (goal_id) REFERENCES financial_goals (id);
 
 ALTER TABLE
-    goal_contribution
+    goal_contributions
     ADD
-        CONSTRAINT goal_contribution_transaction_id_fkey FOREIGN KEY (transaction_id) REFERENCES transactions (id);
+        CONSTRAINT goal_contributions_transaction_id_fkey FOREIGN KEY (transaction_id) REFERENCES transactions (id);
 
 ALTER TABLE
     financial_goals

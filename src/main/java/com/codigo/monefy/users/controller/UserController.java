@@ -1,13 +1,14 @@
 package com.codigo.monefy.users.controller;
 
-import com.codigo.monefy.users.persistence.entity.User;
+import com.codigo.monefy.users.dto.RegistrationRequest;
+import com.codigo.monefy.users.dto.UserDTO;
 import com.codigo.monefy.users.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -20,7 +21,38 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        return ResponseEntity.ok(userService.findById(id));
+    public ResponseEntity<UserDTO> getUserById(@PathVariable Integer id) {
+        UserDTO user = userService.findById(id);
+        return ResponseEntity.ok(user);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<UserDTO>> getAllUsers() {
+        List<UserDTO> users = userService.findAll();
+        return ResponseEntity.ok(users);
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<Void> registerUser(
+            @RequestBody @Valid RegistrationRequest registrationRequest
+            ) {
+        userService.register(registrationRequest);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Integer> updateUser(
+            @PathVariable Integer id,
+            @RequestBody @Valid RegistrationRequest updateRequest
+    ) {
+        // Implement update logic in UserService
+        userService.updateUser(id, updateRequest);
+        return ResponseEntity.ok(id);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteUser(@PathVariable Integer id) {
+        userService.deleteUser(id);
+        return ResponseEntity.noContent().build();
     }
 }

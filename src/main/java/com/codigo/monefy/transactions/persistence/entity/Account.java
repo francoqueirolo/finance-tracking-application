@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "accounts")
 @Getter
@@ -13,7 +15,7 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
@@ -23,15 +25,15 @@ public class Account {
     private AccountType accountType;
     private String name;
     private String description;
-    private Double initialBalance;
-    private Double currentBalance;
+    private BigDecimal initialBalance;
+    private BigDecimal currentBalance;
     private boolean isActive;
     private String bankName;
     private String accountNumber;
 
     public Account() {}
 
-    public Account(Long id, User user, AccountType accountType, String name, String description, Double initialBalance, Double currentBalance, boolean isActive, String bankName, String accountNumber) {
+    public Account(Integer id, User user, AccountType accountType, String name, String description, BigDecimal initialBalance, BigDecimal currentBalance, boolean isActive, String bankName, String accountNumber) {
         this.id = id;
         this.user = user;
         this.accountType = accountType;

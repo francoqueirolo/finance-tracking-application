@@ -14,19 +14,22 @@ public class EmailVerificationToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     private String token;
+
+    @Column(name = "expire_date")
     private LocalDateTime expireDate;
+
     private boolean isRevoked;
 
     public EmailVerificationToken() {}
 
-    public EmailVerificationToken(Long id, User user, String token, LocalDateTime expireDate, boolean isRevoked) {
+    public EmailVerificationToken(Integer id, User user, String token, LocalDateTime expireDate, boolean isRevoked) {
         this.id = id;
         this.user = user;
         this.token = token;

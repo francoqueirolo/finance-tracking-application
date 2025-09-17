@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Table(name = "budget_categories")
 @Getter
@@ -12,7 +14,7 @@ public class BudgetCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
@@ -22,12 +24,12 @@ public class BudgetCategory {
     @JoinColumn(name = "budget_id", nullable = false)
     private Budget budget;
 
-    private Double spentAmount;
-    private String allocatedAmount;
+    private BigDecimal spentAmount;
+    private BigDecimal allocatedAmount;
 
     public BudgetCategory() {}
 
-    public BudgetCategory(Long id, Category category, Budget budget, Double spentAmount, String allocatedAmount) {
+    public BudgetCategory(Integer id, Category category, Budget budget, BigDecimal spentAmount, BigDecimal allocatedAmount) {
         this.id = id;
         this.category = category;
         this.budget = budget;

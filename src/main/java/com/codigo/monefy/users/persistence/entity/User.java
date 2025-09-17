@@ -20,7 +20,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
     private String username;
     private String email;
 
@@ -39,7 +39,7 @@ public class User {
             CascadeType.PERSIST,
             CascadeType.MERGE
     })
-    @JoinTable(name = "user_roles",
+    @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
@@ -47,7 +47,7 @@ public class User {
 
     public User() {}
 
-    public User(Long id, String username, String email, String passwordHash, String firstName, String lastName, String phone, String profileImageUrl, boolean isActive, boolean isVerified, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public User(Integer id, String username, String email, String passwordHash, String firstName, String lastName, String phone, String profileImageUrl, boolean isActive, boolean isVerified, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.username = username;
         this.email = email;
@@ -60,27 +60,5 @@ public class User {
         this.isVerified = isVerified;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-    }
-
-    public void addRole(Role role) {
-        roles.add(role);
-        role.getUsers().add(this);
-    }
-
-    public void removeRole(Role role) {
-        roles.remove(role);
-        role.getUsers().remove(this);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return isActive == user.isActive && isVerified == user.isVerified && Objects.equals(id, user.id) && Objects.equals(username, user.username) && Objects.equals(email, user.email) && Objects.equals(passwordHash, user.passwordHash) && Objects.equals(firstName, user.firstName) && Objects.equals(lastName, user.lastName) && Objects.equals(phone, user.phone) && Objects.equals(profileImageUrl, user.profileImageUrl) && Objects.equals(createdAt, user.createdAt) && Objects.equals(updatedAt, user.updatedAt) && Objects.equals(roles, user.roles);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username, email, passwordHash, firstName, lastName, phone, profileImageUrl, isActive, isVerified, createdAt, updatedAt, roles);
     }
 }

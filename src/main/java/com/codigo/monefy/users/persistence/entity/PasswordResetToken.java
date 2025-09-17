@@ -14,7 +14,7 @@ public class PasswordResetToken {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     // Evitar dejar por defecto el fetch en Eager porque vas a evitar el problema N+1
     // N+1 cuando usas Eager cada PasswordResetToken va a arrastrar un SELECT adicional para traer el User, aun cuando no lo uses.
@@ -25,16 +25,17 @@ public class PasswordResetToken {
     private User user;
 
     private String token;
-    private LocalDateTime expiryDate;
+    @Column(name = "expire_date")
+    private LocalDateTime expireDate;
     private boolean isUsed;
 
     public PasswordResetToken() {}
 
-    public PasswordResetToken(Long id, User user, String token, LocalDateTime expiryDate, boolean isUsed) {
+    public PasswordResetToken(Integer id, User user, String token, LocalDateTime expireDate, boolean isUsed) {
         this.id = id;
         this.user = user;
         this.token = token;
-        this.expiryDate = expiryDate;
+        this.expireDate = expireDate;
         this.isUsed = isUsed;
     }
 }
